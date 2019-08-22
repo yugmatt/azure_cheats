@@ -1,0 +1,48 @@
+
+Dynamic Data Masking
+--------------------
+-PowerShell
+  . Get-AzSQLDatabaseDataMaskingRule
+  . Set-AzSQLDatabaseDataMaskingRule
+  . New-AzSQLDatabaseDataMaskingRule
+  . Remove-AzSQLDatabaseDataMaskingRule
+
+-Creating columns with masks during table creation:
+
+ CREATE TABLE emp
+ ( emp_id int IDENTITY PRIMARY KEY,
+   first_name varhar(100) MASKED WITH (FUNCTION = 'partial(1, "XXXXX", 0)') NULL,
+   last_name varchar(10) NOT NULL,
+   phone varhar(12) MASKED WITH (FUNCTION = 'default()') NULL,
+   email varhar(100) MASKED WITH (FUNCTION = 'email()') NULL
+ );
+ 
+ Encrypting Data at test and in motion
+ -------------------------------------
+ * Rest
+ 
+ Azure SQL Server/ SQL DB/ SQL DWH
+ - Transparent Data Encryption (TDE)
+  . Encrypts databases, backups and logs at rest without any changes to application
+ 
+ Cosmos DB
+ - Encryption on by default
+   . secure key storage systems, encrypted n/ws and cryptographic APIs
+ 
+ Data Lake 
+ - Encryption on by default
+ - Keys are managed by default (optional)
+ - Keys
+     . Master encryption key (MEK)
+     . Data encryption Key (DEK)
+     . Block encryption key (BEK)
+ 
+ * In motion
+ 
+ - TLS / SSL (Uses HTTPS)
+  . SQL DB/Server/DWH/Data Lake/ Cosmos
+  
+ - Shared Access Signatures
+ 
+ - Data Lake
+ 
